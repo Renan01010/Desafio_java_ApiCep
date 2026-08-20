@@ -16,30 +16,26 @@ import java.util.Scanner;
 
 public class Principal {
     static void main() {
+        Scanner scn = new Scanner(System.in);
+
         ConsultaCep cep = new ConsultaCep();
-        Endereco novoEndereco = cep.consultaCep("1");
-        System.out.println(novoEndereco);
+        while (true) {
+            System.out.println("Digite um CEP ou 0 para encerrar o programa: ");
+            try {
+                String leitura = scn.nextLine();
 
+                if(leitura.equalsIgnoreCase("0")){
+                    System.out.println("Finalizando aplicação!...");
+                    break;
+                }
 
+                Endereco novoEndereco = cep.consultaCep(leitura);
+                System.out.println(novoEndereco);
 
-//
-//        Scanner scn = new Scanner(System.in);
-//            System.out.println("Entre com um CEP: ");
-//            int cep = scn.nextInt();
-//
-//        Gson gson = new GsonBuilder()
-//                .setFieldNamingPolicy(FieldNamingPolicy.UPPER_CAMEL_CASE)
-//                .setPrettyPrinting()
-//                .create();
-//
-//        String url = "https://viacep.com.br/ws/"+cep+"/json/";
-//
-//        HttpClient client = HttpClient.newHttpClient();
-//        HttpRequest request = HttpRequest.newBuilder()
-//                .uri(URI.create(url))
-//                .build();
-//        HttpResponse<String> response = client
-//                .send(request, HttpResponse.BodyHandlers.ofString());
+            } catch (RuntimeException e) {
+                System.out.println(e.getMessage());
+            }
+        }
 //
 //        String json = response.body();
 //        System.out.println(json);
